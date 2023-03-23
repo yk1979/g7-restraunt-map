@@ -1,0 +1,8 @@
+.root {
+  background-color: aquamarine;
+
+  /* postcss で nesting rule を有効にしてるので、scss っぽく書けるよ（mixin とかは非対応） */
+  .title {
+    color: #cdcdcd;
+  }
+}
