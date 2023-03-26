@@ -23,5 +23,16 @@ module.exports = {
   rules: {
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
+    "import/order": [
+      2,
+      {
+        groups: ["builtin", "external", "parent", "sibling", "index"],
+        pathGroupsExcludedImportTypes: ["builtin"],
+        alphabetize: {
+          order: "asc",
+        },
+        "newlines-between": "always",
+      },
+    ],
   },
 };

@@ -1,5 +1,6 @@
 import { NextPage } from "next";
-import { Sample } from "../components/sample";
+
+import { Sample } from "../components/Sample";
 
 const IndexPage: NextPage = () => (
   <main>
