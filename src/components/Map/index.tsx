@@ -40,42 +40,36 @@ const MapComponent: React.FC = () => {
     setIsOpen(false);
   };
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={G7_ADDRESS}
-        zoom={16}
-      >
-        <Marker position={G7_ADDRESS} />
-        {/* リストに登録されたお店の分だけマーカーを作成する */}
-        {RESTAURANTS.map((restaurant, index) => {
-          const shopId = `${restaurant.lat}+${restaurant.lng}`;
-          return (
-            <Marker
-              position={{
-                lat: restaurant.lat,
-                lng: restaurant.lng,
-              }}
-              key={shopId}
-              onClick={() => {
-                selectRestaurant(shopId, index);
-              }}
-              label={{ text: `${index + 1}`, color: "#fff" }}
-            >
-              {isOpen && index === selectedIndex && (
-                <InfoWindow
-                  onCloseClick={() => {
-                    resetSelectedId();
-                  }}
-                >
-                  <div>{restaurant.name}</div>
-                </InfoWindow>
-              )}
-            </Marker>
-          );
-        })}
-      </GoogleMap>
-    </LoadScript>
+    <GoogleMap mapContainerStyle={containerStyle} center={G7_ADDRESS} zoom={16}>
+      <Marker position={G7_ADDRESS} />
+      {/* リストに登録されたお店の分だけマーカーを作成する */}
+      {RESTAURANTS.map((restaurant, index) => {
+        const shopId = `${restaurant.lat}+${restaurant.lng}`;
+        return (
+          <Marker
+            position={{
+              lat: restaurant.lat,
+              lng: restaurant.lng,
+            }}
+            key={shopId}
+            onClick={() => {
+              selectRestaurant(shopId, index);
+            }}
+            label={{ text: `${index + 1}`, color: "#fff" }}
+          >
+            {isOpen && index === selectedIndex && (
+              <InfoWindow
+                onCloseClick={() => {
+                  resetSelectedId();
+                }}
+              >
+                <div>{restaurant.name}</div>
+              </InfoWindow>
+            )}
+          </Marker>
+        );
+      })}
+    </GoogleMap>
   );
 };
 
