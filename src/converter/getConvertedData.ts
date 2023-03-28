@@ -6,6 +6,7 @@ type ResultData = {
   lng: number;
   comment: string;
   url: string;
+  user?: string;
 }[];
 
 export const getConvertedData = async (slackDataList: SlackData[]) => {
@@ -39,6 +40,7 @@ export const getConvertedData = async (slackDataList: SlackData[]) => {
         lng: lng,
         comment: slackDataList[index]?.comment,
         url: slackDataList[index]?.url,
+        user: slackDataList[index]?.user,
       };
 
       return resultData;

@@ -13,6 +13,7 @@ type Props = {
     lat: number;
     lng: number;
     comment: string;
+    user: string;
   }[];
 };
 
@@ -32,12 +33,10 @@ const ShopInfoComponent: React.FC<Props> = ({ items }) => {
               <div className={styles.shop_name}>
                 {index + 1}.&nbsp;{item.name}
                 <span className={styles.user_name}>
-                  -&nbsp;test onamae (3/28フレ休)&nbsp;さんがおすすめ&nbsp;
+                  -&nbsp;{item.user}&nbsp;さんがおすすめ&nbsp;
                 </span>
               </div>
-              <p className={styles.comment}>
-                slackコメントがここに入りますslackコメントがここに入りますslackコメントがここに入りますslackコメントがここに入ります
-              </p>
+              <p className={styles.comment}>{item.comment}</p>
               <p className={styles.address}>
                 〒104-0061 東京都中央区銀座８丁目１０−４的な住所
               </p>
