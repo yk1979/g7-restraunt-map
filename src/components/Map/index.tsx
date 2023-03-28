@@ -12,7 +12,7 @@ const containerStyle = {
 
 export const selectedMarkerState = atom({
   key: "selectedMarkerState",
-  default: "1",
+  default: undefined,
 });
 
 const MapComponent: React.FC = () => {
@@ -31,19 +31,22 @@ const MapComponent: React.FC = () => {
       >
         <Marker position={G7_ADDRESS} />
         {/* リストに登録されたお店の分だけマーカーを作成する */}
-        {RESTAURANTS.map((restaurant, index) => (
-          <Marker
-            position={{
-              lat: restaurant.lat,
-              lng: restaurant.lng,
-            }}
-            key={`${restaurant.lat}+${restaurant.lng}`}
-            onClick={() => {
-              selectRestaurant(`${restaurant.lat}+${restaurant.lng}`);
-            }}
-            label={{ text: `${index + 1}`, color: "#fff" }}
-          />
-        ))}
+        {RESTAURANTS.map((restaurant, index) => {
+          const shopId = `${restaurant.lat}+${restaurant.lng}`;
+          return (
+            <Marker
+              position={{
+                lat: restaurant.lat,
+                lng: restaurant.lng,
+              }}
+              key={shopId}
+              onClick={() => {
+                selectRestaurant(shopId);
+              }}
+              label={{ text: `${index + 1}`, color: "#fff" }}
+            />
+          );
+        })}
       </GoogleMap>
     </LoadScript>
   );
