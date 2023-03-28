@@ -23,10 +23,19 @@ const ShopInfoComponent: React.FC = () => {
             >
               <div className={styles.shop_name}>
                 {index + 1}.&nbsp;{item.name}
+                <span className={styles.user_name}>
+                  -&nbsp;test onamae (3/28フレ休)&nbsp;さんがおすすめ&nbsp;
+                </span>
               </div>
               <p className={styles.comment}>
                 slackコメントがここに入りますslackコメントがここに入りますslackコメントがここに入りますslackコメントがここに入ります
               </p>
+              <p className={styles.address}>
+                〒104-0061 東京都中央区銀座８丁目１０−４的な住所
+              </p>
+              <a className={styles.url} href="">
+                https://tabelog.com/tokyo/A1301/A130101/13140248/
+              </a>
             </li>
           );
         })}

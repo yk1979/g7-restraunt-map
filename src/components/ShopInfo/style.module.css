@@ -20,8 +20,24 @@
     font-size: 24px;
   }
 
+  .user_name {
+    font-size: 16px;
+    padding-left: 18px;
+  }
+
   .comment {
     margin-top: 10px;
     font-size: 16px;
+  }
+
+  .address {
+    font-size: 12px;
+    color: #a9a9a9;
+    margin-top: 10px;
+  }
+
+  .url {
+    font-size: 12px;
+    word-break: break-all;
   }
 }
