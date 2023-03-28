@@ -16,7 +16,7 @@ export const slackDataList: SlackData[] = [
   },
   {
     user: "",
-    name: "2ばん",
+    name: "銀座駅",
     address: "住所住所",
     comment: "コメントコメントコメント",
     url: "",

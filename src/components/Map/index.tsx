@@ -3,9 +3,7 @@ import { memo } from "react";
 import { atom, useRecoilState } from "recoil";
 
 import { G7_ADDRESS } from "../../constants";
-import { getLatLngData } from "../../converter/getLatLngData";
 import { RESTAURANTS } from "../../mock/restaurants";
-import { slackDataList } from "../../mock/slackData";
 
 const containerStyle = {
   width: "100%",
@@ -18,8 +16,6 @@ export const selectedMarkerState = atom({
 });
 
 const MapComponent: React.FC = () => {
-  getLatLngData(slackDataList);
-
   const [selectedMarker, setSelectedMarker] =
     useRecoilState(selectedMarkerState);
   // マーカーをクリックするとレストランの名称を取得する
