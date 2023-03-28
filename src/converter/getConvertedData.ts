@@ -9,28 +9,41 @@ type ResultData = {
 }[];
 
 export const getConvertedData = async (slackDataList: SlackData[]) => {
+  /* console.log("slackDataList", slackDataList); */
   const datalist = await Promise.all(
     slackDataList.map((slackData) => {
-      return fetch(`/api/googleTextSearch?text=${slackData.name}`).then((res) =>
-        res.json(),
-      );
+      return fetch(
+        `http://localhost:3000/api/googleTextSearch?text=${encodeURIComponent(
+          slackData.name,
+        )}`,
+      ).then((res) => res.json());
     }),
   );
 
-  const result: ResultData = datalist.map((data) => {
-    const target = data[0];
-    const { lat, lng } = target.geometry.location;
+  console.log({ datalist });
 
-    const resultData = {
-      name: data.name,
-      lat: lat,
-      lng: lng,
-      comment: data.comment,
-      url: data.url,
-    };
+  const result: ResultData = datalist
+    .map((data, index) => {
+      // console.log({ value: data.value });
 
-    return resultData;
-  });
+      const target = data[0];
+      console.log("target", target);
+      if (!target || !target.geometry) {
+        return null;
+      }
+      const { lat, lng } = target.geometry.location;
+
+      const resultData = {
+        name: target?.name || "",
+        lat: lat,
+        lng: lng,
+        comment: slackDataList[index]?.comment,
+        url: slackDataList[index]?.url,
+      };
+
+      return resultData;
+    })
+    .filter((data) => !!data);
 
   return result;
 };

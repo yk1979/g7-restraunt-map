@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { Map } from "../components/Map";
 import { ShopInfo } from "../components/ShopInfo";
 import { Title } from "../components/Title";
+import { getConvertedData } from "../converter/getConvertedData";
 
 type SlackHistories = any[];
 type SlackUsers = any[];
@@ -37,7 +38,6 @@ const getSlackHistories = async (ctx: any) => {
     const jsonData = await fetch(
       `${protocol}://${host}/api/slack_history`,
     ).then((data) => data.json());
-    console.log("gSSP", { jsonData });
     return jsonData;
   } catch (e) {
     console.log(e);
@@ -52,7 +52,6 @@ const getSlackUsers = async (ctx: any) => {
     const jsonData = await fetch(`${protocol}://${host}/api/slack_users`).then(
       (data) => data.json(),
     );
-    console.log("gSSP", { jsonData });
     return jsonData;
   } catch (e) {
     console.log(e);
@@ -102,10 +101,13 @@ export const getServerSideProps = async (ctx: any) => {
   const slackHistories = await getSlackHistories(ctx);
   const slackUsers = await getSlackUsers(ctx);
   const restaurantsData = convertData(slackHistories, slackUsers);
+  console.log("restaurantsData", restaurantsData);
+  const hoge = await getConvertedData(restaurantsData);
+  console.log("hoge", hoge);
   return {
     props: {
       slackHistories,
-      restaurantsData,
+      restaurantsData: hoge,
     },
   };
 };
