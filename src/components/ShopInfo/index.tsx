@@ -12,7 +12,7 @@ const ShopInfoComponent: React.FC = () => {
 
         {RESTAURANTS.map((item,index) => (
           <li className={styles.shop_data}>
-            <div className={styles.shop_name}><span className="shop_info-num">{index + 1}.&nbsp;</span>{item.name}</div>
+            <div className={styles.shop_name}>{index + 1}.&nbsp;{item.name}</div>
             <p className={styles.comment}>
               slackコメントがここに入りますslackコメントがここに入りますslackコメントがここに入りますslackコメントがここに入ります
             </p>
