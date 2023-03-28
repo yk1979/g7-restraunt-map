@@ -13,9 +13,9 @@ export default async function handler(_, res) {
       channel: CHANNEL_ID,
     });
 
-    console.log(result.messages);
+    /* console.log(result.messages); */
   } catch (e) {
-    console.log(e);
+    /*  console.log(e); */
   }
 
   res.status(200).json(result.messages);

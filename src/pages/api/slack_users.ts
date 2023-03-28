@@ -11,9 +11,9 @@ export default async function handler(_, res) {
   try {
     result = await client.users.list();
 
-    console.log(result);
+    /* console.log(result); */
   } catch (e) {
-    console.log(e);
+    /*  console.log(e); */
   }
 
   res.status(200).json(result?.members);
