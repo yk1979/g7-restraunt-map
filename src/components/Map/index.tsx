@@ -1,5 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { memo } from "react";
+import { atom, useRecoilState } from "recoil";
 
 import { G7_ADDRESS } from "../../constants";
 import { RESTAURANTS } from "../../mock/restaurants";
@@ -9,10 +10,17 @@ const containerStyle = {
   height: "600px",
 };
 
+export const selectedMarkerState = atom({
+  key: "selectedMarkerState",
+  default: undefined,
+});
+
 const MapComponent: React.FC = () => {
+  const [selectedMarker, setSelectedMarker] =
+    useRecoilState(selectedMarkerState);
   // マーカーをクリックするとレストランの名称を取得する
-  const selectRestaurant = (name: string) => {
-    console.log(name);
+  const selectRestaurant = (id: string) => {
+    setSelectedMarker(id);
   };
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
@@ -23,19 +31,22 @@ const MapComponent: React.FC = () => {
       >
         <Marker position={G7_ADDRESS} />
         {/* リストに登録されたお店の分だけマーカーを作成する */}
-        {RESTAURANTS.map((restaurant, index) => (
-          <Marker
-            position={{
-              lat: restaurant.lat,
-              lng: restaurant.lng,
-            }}
-            key={`${restaurant.lat}+${restaurant.lng}`}
-            onClick={() => {
-              selectRestaurant(restaurant.name);
-            }}
-            label={{ text: `${index + 1}`, color: "#fff" }}
-          />
-        ))}
+        {RESTAURANTS.map((restaurant, index) => {
+          const shopId = `${restaurant.lat}+${restaurant.lng}`;
+          return (
+            <Marker
+              position={{
+                lat: restaurant.lat,
+                lng: restaurant.lng,
+              }}
+              key={shopId}
+              onClick={() => {
+                selectRestaurant(shopId);
+              }}
+              label={{ text: `${index + 1}`, color: "#fff" }}
+            />
+          );
+        })}
       </GoogleMap>
     </LoadScript>
   );
