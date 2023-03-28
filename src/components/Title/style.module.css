@@ -6,6 +6,9 @@
 
   .h1 {
     font-size: 74px;
+    @media screen and (max-width: 768px) {
+      font-size: 48px;
+    }
   }
 
   .subtitle {
