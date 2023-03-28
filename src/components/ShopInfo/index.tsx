@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useRecoilState } from "recoil";
+import { Restaurant } from "../../pages";
 
 // memo: 一旦アナログのデータを使用するが、後でAPI返り値が入るように変えること
 // import { RESTAURANTS } from "../../mock/restaurants";
@@ -8,13 +9,7 @@ import { selectedMarkerState } from "../Map";
 import styles from "./style.module.css";
 
 type Props = {
-  items: {
-    name: string;
-    lat: number;
-    lng: number;
-    comment: string;
-    user: string;
-  }[];
+  items: Restaurant[];
 };
 
 const ShopInfoComponent: React.FC<Props> = ({ items }) => {
@@ -40,8 +35,8 @@ const ShopInfoComponent: React.FC<Props> = ({ items }) => {
               <p className={styles.address}>
                 〒104-0061 東京都中央区銀座８丁目１０−４的な住所
               </p>
-              <a className={styles.url} href="">
-                https://tabelog.com/tokyo/A1301/A130101/13140248/
+              <a className={styles.url} href={item.url}>
+                {item.url}
               </a>
             </li>
           );

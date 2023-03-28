@@ -8,12 +8,13 @@ import { getConvertedData } from "../converter/getConvertedData";
 type SlackHistories = any[];
 type SlackUsers = any[];
 
-type Restaurant = {
+export type Restaurant = {
   name: string;
   lat: number;
   lng: number;
   comment: string;
   url: string;
+  user?: string;
 };
 
 type Props = {
