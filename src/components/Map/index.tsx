@@ -14,21 +14,6 @@ const MapComponent: React.FC = () => {
   const selectRestaurant = (name: string) => {
     console.log(name);
   };
-  // リストに登録されたお店の分だけマーカーを作成する
-  const marker = RESTAURANTS.map((restaurant, index) => {
-    return (
-      <Marker
-        position={{
-          lat: restaurant.lat,
-          lng: restaurant.lng,
-        }}
-        key={index}
-        onClick={() => {
-          selectRestaurant(restaurant.name);
-        }}
-      />
-    );
-  });
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <GoogleMap
@@ -37,7 +22,20 @@ const MapComponent: React.FC = () => {
         zoom={16}
       >
         <Marker position={G7_ADDRESS} />
-        {marker}
+        {/* リストに登録されたお店の分だけマーカーを作成する */}
+        {RESTAURANTS.map((restaurant, index) => (
+          <Marker
+            position={{
+              lat: restaurant.lat,
+              lng: restaurant.lng,
+            }}
+            key={`${restaurant.lat}+${restaurant.lng}`}
+            onClick={() => {
+              selectRestaurant(restaurant.name);
+            }}
+            label={{ text: `${index + 1}`, color: "#fff" }}
+          />
+        ))}
       </GoogleMap>
     </LoadScript>
   );
