@@ -11,8 +11,8 @@ const containerStyle = {
 
 const MapComponent: React.FC = () => {
   // マーカーをクリックするとレストランの名称を取得する
-  const selectRestaurant = (e) => {
-    console.log(e);
+  const selectRestaurant = (name: string) => {
+    console.log(name);
   };
   // リストに登録されたお店の分だけマーカーを作成する
   const marker = RESTAURANTS.map((restaurant, index) => {
@@ -23,7 +23,9 @@ const MapComponent: React.FC = () => {
           lng: restaurant.lng,
         }}
         key={index}
-        onClick={selectRestaurant}
+        onClick={() => {
+          selectRestaurant(restaurant.name);
+        }}
       />
     );
   });
