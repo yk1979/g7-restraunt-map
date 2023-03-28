@@ -1,5 +1,10 @@
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import { memo } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+import { memo, useState } from "react";
 
 import { G7_ADDRESS } from "../../constants";
 import { RESTAURANTS } from "../../mock/restaurants";
@@ -10,9 +15,12 @@ const containerStyle = {
 };
 
 const MapComponent: React.FC = () => {
+  // マーカーがクリックされているかどうかの状態を保持する
+  // const { markerClicked, setMarkerClicked } = useState(false);
+
   // マーカーをクリックするとレストランの名称を取得する
-  const selectRestaurant = (e) => {
-    console.log(e);
+  const selectRestaurant = (name: string) => {
+    console.log(name);
   };
   // リストに登録されたお店の分だけマーカーを作成する
   const marker = RESTAURANTS.map((restaurant, index) => {
@@ -23,7 +31,9 @@ const MapComponent: React.FC = () => {
           lng: restaurant.lng,
         }}
         key={index}
-        onClick={selectRestaurant}
+        onClick={() => {
+          selectRestaurant(restaurant.name);
+        }}
       />
     );
   });
