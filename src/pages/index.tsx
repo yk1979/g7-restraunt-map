@@ -5,6 +5,7 @@ import { ShopInfo } from "../components/ShopInfo";
 import { Title } from "../components/Title";
 
 type SlackHistories = any[];
+type SlackUsers = any[];
 
 type Props = {
   slackHistories: SlackHistories;
@@ -44,6 +45,21 @@ const getSlackHistories = async (ctx: any) => {
   }
 };
 
+const getSlackUsers = async (ctx: any) => {
+  try {
+    const host = ctx.req.headers.host || "localhost:3000";
+    const protocol = /^localhost/.test(host) ? "http" : "https";
+    const jsonData = await fetch(`${protocol}://${host}/api/slack_users`).then(
+      (data) => data.json(),
+    );
+    console.log("gSSP", { jsonData });
+    return jsonData;
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
+};
+
 const getAttachmentsInfoFromMessage = (history: any) => {
   if (
     !history ||
@@ -58,16 +74,24 @@ const getAttachmentsInfoFromMessage = (history: any) => {
   };
 };
 
-const convertData = (slackHistories: SlackHistories): SlackData[] => {
+const getUserName = (slackUsers: SlackUsers, userId: string) => {
+  const targetUser = slackUsers.find((user) => user && user.id === userId);
+  return targetUser ? targetUser.name : "";
+};
+
+const convertData = (
+  slackHistories: SlackHistories,
+  slackUsers: SlackUsers,
+): SlackData[] => {
   return slackHistories
     .filter((history) => history.subtype !== "channel_join")
     .map((history) => {
       const { url, name } = getAttachmentsInfoFromMessage(history);
-      console.log();
+      const userName = getUserName(slackUsers, history.user);
       return {
         name,
         url,
-        user: history.user,
+        user: userName,
         address: "",
         comment: history.text,
       };
@@ -76,7 +100,8 @@ const convertData = (slackHistories: SlackHistories): SlackData[] => {
 
 export const getServerSideProps = async (ctx: any) => {
   const slackHistories = await getSlackHistories(ctx);
-  const restaurantsData = convertData(slackHistories);
+  const slackUsers = await getSlackUsers(ctx);
+  const restaurantsData = convertData(slackHistories, slackUsers);
   return {
     props: {
       slackHistories,

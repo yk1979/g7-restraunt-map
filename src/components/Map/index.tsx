@@ -45,9 +45,6 @@ const MapComponent: React.FC = () => {
         mapContainerStyle={containerStyle}
         center={G7_ADDRESS}
         zoom={16}
-        onClick={() => {
-          resetSelectedId();
-        }}
       >
         <Marker position={G7_ADDRESS} />
         {/* リストに登録されたお店の分だけマーカーを作成する */}
