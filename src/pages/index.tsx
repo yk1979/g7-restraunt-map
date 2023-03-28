@@ -8,9 +8,16 @@ import { getConvertedData } from "../converter/getConvertedData";
 type SlackHistories = any[];
 type SlackUsers = any[];
 
+type Restaurant = {
+  name: string;
+  lat: number;
+  lng: number;
+  comment: string;
+  url: string;
+};
+
 type Props = {
-  slackHistories: SlackHistories;
-  restaurantsData: any;
+  restaurantsData: Restaurant[];
 };
 
 type SlackData = {
@@ -21,11 +28,11 @@ type SlackData = {
   url: string;
 };
 
-const IndexPage: NextPage<Props> = ({ slackHistories, restaurantsData }) => (
+const IndexPage: NextPage<Props> = ({ restaurantsData }) => (
   <main>
     <Title />
-    <Map />
-    <ShopInfo />
+    <Map items={restaurantsData} />
+    <ShopInfo items={restaurantsData} />
   </main>
 );
 
@@ -100,14 +107,12 @@ const convertData = (
 export const getServerSideProps = async (ctx: any) => {
   const slackHistories = await getSlackHistories(ctx);
   const slackUsers = await getSlackUsers(ctx);
-  const restaurantsData = convertData(slackHistories, slackUsers);
-  console.log("restaurantsData", restaurantsData);
-  const hoge = await getConvertedData(restaurantsData);
-  console.log("hoge", hoge);
+  const restaurantsData = await getConvertedData(
+    convertData(slackHistories, slackUsers),
+  );
   return {
     props: {
-      slackHistories,
-      restaurantsData: hoge,
+      restaurantsData,
     },
   };
 };

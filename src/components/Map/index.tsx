@@ -20,7 +20,16 @@ export const selectedMarkerState = atom({
   default: undefined,
 });
 
-const MapComponent: React.FC = () => {
+type Props = {
+  items: {
+    name: string;
+    lat: number;
+    lng: number;
+    comment: string;
+  }[];
+};
+
+const MapComponent: React.FC<Props> = ({ items }) => {
   const [selectedMarker, setSelectedMarker] =
     useRecoilState(selectedMarkerState);
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +59,7 @@ const MapComponent: React.FC = () => {
     >
       <Marker position={G7_ADDRESS} />
       {/* リストに登録されたお店の分だけマーカーを作成する */}
-      {RESTAURANTS.map((restaurant, index) => {
+      {items.map((restaurant, index) => {
         const shopId = `${restaurant.lat}+${restaurant.lng}`;
         return (
           <Marker

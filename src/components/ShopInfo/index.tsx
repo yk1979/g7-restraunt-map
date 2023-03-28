@@ -2,18 +2,26 @@ import { memo } from "react";
 import { useRecoilState } from "recoil";
 
 // memo: 一旦アナログのデータを使用するが、後でAPI返り値が入るように変えること
-import { RESTAURANTS } from "../../mock/restaurants";
+// import { RESTAURANTS } from "../../mock/restaurants";
 import { selectedMarkerState } from "../Map";
 
 import styles from "./style.module.css";
 
-const ShopInfoComponent: React.FC = () => {
-  const [selectedMarker, setSelectedMarker] =
-    useRecoilState(selectedMarkerState);
+type Props = {
+  items: {
+    name: string;
+    lat: number;
+    lng: number;
+    comment: string;
+  }[];
+};
+
+const ShopInfoComponent: React.FC<Props> = ({ items }) => {
+  const [selectedMarker] = useRecoilState(selectedMarkerState);
   return (
     <div className={styles.shop_info}>
       <ul className={styles.shop_list}>
-        {RESTAURANTS.map((item, index) => {
+        {items.map((item, index) => {
           const shopId = `${item.lat}+${item.lng}`;
           return (
             <li
