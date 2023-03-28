@@ -40,7 +40,14 @@ const MapComponent: React.FC = () => {
     setIsOpen(false);
   };
   return (
-    <GoogleMap mapContainerStyle={containerStyle} center={G7_ADDRESS} zoom={16}>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={G7_ADDRESS}
+      zoom={16}
+      onClick={() => {
+        resetSelectedId();
+      }}
+    >
       <Marker position={G7_ADDRESS} />
       {/* リストに登録されたお店の分だけマーカーを作成する */}
       {RESTAURANTS.map((restaurant, index) => {
