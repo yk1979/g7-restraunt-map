@@ -1,0 +1,27 @@
+.shop_info {
+    width: 90%;
+    max-width: 1297px;
+    margin: 85px auto 0;
+    color: #333333;
+    &:hover {
+        background-color: #FFF5D3;
+        .shop_name {
+                color: #FF9900;
+        }
+    }
+
+    .shop_data {
+        list-style: none;
+        padding: 28px 67px;
+    }
+
+    .shop_name {
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    .comment {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+}
