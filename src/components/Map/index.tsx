@@ -1,10 +1,5 @@
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
-import { memo, useState } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { memo } from "react";
 
 import { G7_ADDRESS } from "../../constants";
 import { RESTAURANTS } from "../../mock/restaurants";
@@ -15,9 +10,6 @@ const containerStyle = {
 };
 
 const MapComponent: React.FC = () => {
-  // マーカーがクリックされているかどうかの状態を保持する
-  // const { markerClicked, setMarkerClicked } = useState(false);
-
   // マーカーをクリックするとレストランの名称を取得する
   const selectRestaurant = (name: string) => {
     console.log(name);
