@@ -1,5 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { memo } from "react";
+import { atom, useRecoilState } from "recoil";
 
 import { G7_ADDRESS } from "../../constants";
 import { RESTAURANTS } from "../../mock/restaurants";
@@ -9,10 +10,17 @@ const containerStyle = {
   height: "600px",
 };
 
+export const selectedMarkerState = atom({
+  key: "selectedMarkerState",
+  default: "1",
+});
+
 const MapComponent: React.FC = () => {
+  const [selectedMarker, setSelectedMarker] =
+    useRecoilState(selectedMarkerState);
   // マーカーをクリックするとレストランの名称を取得する
-  const selectRestaurant = (name: string) => {
-    console.log(name);
+  const selectRestaurant = (id: string) => {
+    setSelectedMarker(id);
   };
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
@@ -31,7 +39,7 @@ const MapComponent: React.FC = () => {
             }}
             key={`${restaurant.lat}+${restaurant.lng}`}
             onClick={() => {
-              selectRestaurant(restaurant.name);
+              selectRestaurant(`${restaurant.lat}+${restaurant.lng}`);
             }}
             label={{ text: `${index + 1}`, color: "#fff" }}
           />
