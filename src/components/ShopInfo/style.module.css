@@ -3,16 +3,16 @@
   max-width: 1297px;
   margin: 85px auto 0;
   color: #333333;
-  &:hover {
+}
+
+.shop_data {
+  list-style: none;
+  padding: 28px 67px;
+  &[data-state="true"] {
     background-color: #fff5d3;
     .shop_name {
       color: #ff9900;
     }
-  }
-
-  .shop_data {
-    list-style: none;
-    padding: 28px 67px;
   }
 
   .shop_name {

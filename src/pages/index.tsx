@@ -2,7 +2,7 @@ import { NextPage } from "next";
 
 import { Map } from "../components/Map";
 import { ShopInfo } from "../components/ShopInfo";
-import { Sample } from "../components/Sample";
+import { Title } from "../components/Title";
 
 type SlackHistories = any[];
 
@@ -19,16 +19,13 @@ type SlackData = {
   url: string;
 };
 
-const IndexPage: NextPage<Props> = ({ slackHistories, restaurantsData }) => {
-  return (
-    <main>
-      <h1>Hello Next.js 👋</h1>
-      <Sample text="銀座はカレー天国" />
-      <Map />
-      <ShopInfo />
-    </main>
-  );
-};
+const IndexPage: NextPage<Props> = ({ slackHistories, restaurantsData }) => (
+  <main>
+    <Title />
+    <Map />
+    <ShopInfo />
+  </main>
+);
 
 export default IndexPage;
 
