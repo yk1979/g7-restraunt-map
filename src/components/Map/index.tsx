@@ -1,8 +1,10 @@
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import { memo } from "react";
 
 import { G7_ADDRESS } from "../../constants";
+import { getLatLngData } from "../../converter/getLatLngData";
 import { RESTAURANTS } from "../../mock/restaurants";
+import { slackDataList } from "../../mock/slackData";
 
 const containerStyle = {
   width: "100%",
@@ -10,6 +12,8 @@ const containerStyle = {
 };
 
 const MapComponent: React.FC = () => {
+  getLatLngData(slackDataList);
+
   // マーカーをクリックするとレストランの名称を取得する
   const selectRestaurant = (e) => {
     console.log(e);
@@ -28,16 +32,10 @@ const MapComponent: React.FC = () => {
     );
   });
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={G7_ADDRESS}
-        zoom={16}
-      >
-        <Marker position={G7_ADDRESS} />
-        {marker}
-      </GoogleMap>
-    </LoadScript>
+    <GoogleMap mapContainerStyle={containerStyle} center={G7_ADDRESS} zoom={16}>
+      <Marker position={G7_ADDRESS} />
+      {marker}
+    </GoogleMap>
   );
 };
 
