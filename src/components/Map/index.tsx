@@ -28,13 +28,16 @@ const MapComponent: React.FC = () => {
   // マーカーをクリックするとレストランの名称を取得する
   const selectRestaurant = (id: string, index: number) => {
     setSelectedMarker(id);
-    if (isOpen) {
-      setIsOpen(false);
-      setSelectedIndex(null);
-    } else {
+    if (isOpen === false) {
       setIsOpen(true);
-      setSelectedIndex(index);
     }
+    setSelectedIndex(index);
+  };
+  // 吹き出しのクローズボタンを押下すると選択状態をリセットする
+  const resetSelectedId = () => {
+    setSelectedMarker(null);
+    setSelectedIndex(null);
+    setIsOpen(false);
   };
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
@@ -62,7 +65,7 @@ const MapComponent: React.FC = () => {
               {isOpen && index === selectedIndex && (
                 <InfoWindow
                   onCloseClick={() => {
-                    selectRestaurant(shopId, index);
+                    resetSelectedId();
                   }}
                 >
                   <div>{restaurant.name}</div>
