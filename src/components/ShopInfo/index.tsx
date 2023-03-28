@@ -12,7 +12,7 @@ const ShopInfoComponent: React.FC = () => {
     useRecoilState(selectedMarkerState);
   return (
     <div className={styles.shop_info}>
-      <ul className="shop_info-list">
+      <ul className={styles.shop_list}>
         {RESTAURANTS.map((item, index) => {
           const shopId = `${item.lat}+${item.lng}`;
           return (
